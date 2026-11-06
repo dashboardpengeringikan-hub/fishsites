@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Suhu &amp; Kelembapan</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- Link ke file CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+</head>
+<body data-template-id="__page-root">
+    <div id="splash-screen" class="splash-screen" aria-label="Memuat dashboard" role="status">
+        <div class="splash-mark text-center px-6">
+            <div class="w-16 h-16 rounded-3xl flex items-center justify-center icon-tile mx-auto mb-5" aria-hidden="true">
+                <i data-lucide="thermometer-sun" class="w-8 h-8"></i>
+            </div>
+            <p data-template-id="splash-brand" class="canva-text display-font font-semibold text-3xl splash-brand">Dashboard Suhu Dan Kelembapan</p>
+            <p data-template-id="splash-message" class="canva-text subtle mt-2 splash-message">Menyiapkan pemantauan suhu &amp; kelembapan</p>
+        </div>
+    </div>
+    <div class="app-shell">
+        <header class="w-full border-b header-border">
+            <div class="max-w-6xl mx-auto px-5 sm:px-8 py-5 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center icon-tile" aria-hidden="true">
+                        <i data-lucide="thermometer-sun" class="w-5 h-5"></i>
+                    </div>
+                    <span data-template-id="brand-name" class="canva-text heading-ink font-bold tracking-tight brand-name">Dashboard Suhu Dan Kelembapan</span>
+                </div>
+                <button id="theme-button" type="button" class="theme-button rounded-full px-4 py-3 min-h-12 flex items-center gap-2 font-semibold" aria-label="Aktifkan mode malam" aria-pressed="false">
+                    <span id="night-icon" aria-hidden="true"><i data-lucide="moon" class="w-5 h-5"></i></span>
+                    <span id="day-icon" class="hidden" aria-hidden="true"><i data-lucide="sun" class="w-5 h-5"></i></span>
+                    <span data-template-id="night-button-label" id="night-label" class="canva-text theme-label night-label">Mode malam</span>
+                    <span data-template-id="day-button-label" id="day-label" class="canva-text theme-label hidden day-label">Mode siang</span>
+                </button>
+            </div>
+        </header>
+        <main class="max-w-6xl mx-auto px-5 sm:px-8 py-9 sm:py-14">
+            <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
+                <div>
+                    <span data-template-id="eyebrow" class="canva-tag pill inline-block rounded-full px-3 py-1.5 font-bold tracking-widest uppercase mb-4 eyebrow-tag">PANTAU PENGERINGAN</span>
+                    <h1 data-template-id="page-title" class="canva-text heading-ink display-font font-semibold leading-tight tracking-tight max-w-2xl page-title">Suhu &amp; kelembapan, sekilas lebih jelas.</h1>
+                    <p data-template-id="page-subtitle" class="canva-text subtle mt-4 max-w-xl leading-relaxed page-subtitle">Pantau simulasi kondisi di dalam dan di luar ruang pengering ikan asin.</p>
+                </div>
+                <div class="flex flex-col md:items-end gap-1">
+                    <span data-template-id="updated-label" class="canva-text subtle font-medium updated-label">Terakhir diperbarui</span>
+                    <time id="updated-time" class="font-bold" aria-live="polite">—</time>
+                </div>
+            </div>
+            <section class="mb-10" aria-labelledby="inside-heading">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="icon-tile rounded-2xl p-3" aria-hidden="true">
+                        <i data-lucide="house" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 data-template-id="inside-heading" id="inside-heading" class="canva-text heading-ink display-font font-semibold inside-heading">Dalam Ruangan</h2>
+                        <p data-template-id="inside-description" class="canva-text subtle inside-description">Sensor di ruang pengering ikan asin</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5 mb-5">
+                    <article data-template-id="inside-temperature-card" class="canva-card metric-card surface reveal rounded-3xl p-6 sm:p-7 metric-card-article" aria-labelledby="inside-temperature-title">
+                        <div class="flex justify-between items-start gap-2">
+                            <div class="icon-tile rounded-2xl p-3" aria-hidden="true">
+                                <i data-lucide="thermometer" class="w-6 h-6"></i>
+                            </div>
+                            <span data-template-id="inside-temperature-tag" class="canva-tag pill rounded-full px-3 py-1 font-semibold inside-temp-tag">SUHU</span>
+                        </div>
+                        <h3 data-template-id="inside-temperature-title" id="inside-temperature-title" class="canva-text subtle font-medium mt-7 metric-card-title">Suhu ruang pengering</h3>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span id="inside-temperature-value" class="display-font font-semibold tracking-tight metric-card-value" aria-live="polite">—</span>
+                            <span data-template-id="inside-temperature-unit" class="canva-text subtle font-semibold metric-card-unit">°C</span>
+                        </div>
+                        <p id="inside-temperature-status" class="subtle mt-2 font-medium">Menyiapkan simulasi…</p>
+                    </article>
+                    <article data-template-id="inside-humidity-card" class="canva-card metric-card surface reveal rounded-3xl p-6 sm:p-7 metric-card-article" aria-labelledby="inside-humidity-title">
+                        <div class="flex justify-between items-start gap-2">
+                            <div class="icon-tile blue rounded-2xl p-3" aria-hidden="true">
+                                <i data-lucide="droplets" class="w-6 h-6"></i>
+                            </div>
+                            <span data-template-id="inside-humidity-tag" class="canva-tag pill rounded-full px-3 py-1 font-semibold inside-hum-tag">KELEMBAPAN</span>
+                        </div>
+                        <h3 data-template-id="inside-humidity-title" id="inside-humidity-title" class="canva-text subtle font-medium mt-7 metric-card-title">Kelembapan ruang pengering</h3>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span id="inside-humidity-value" class="display-font font-semibold tracking-tight metric-card-value" aria-live="polite">—</span>
+                            <span data-template-id="inside-humidity-unit" class="canva-text subtle font-semibold metric-card-unit">%</span>
+                        </div>
+                        <p id="inside-humidity-status" class="subtle mt-2 font-medium">Menyiapkan simulasi…</p>
+                    </article>
+                </div>
+                <section data-template-id="inside-recent-card" class="canva-card surface reveal rounded-3xl p-6 sm:p-8 metric-card-article" aria-labelledby="inside-recent-title">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-6">
+                        <div>
+                            <h3 data-template-id="inside-recent-title" id="inside-recent-title" class="canva-text heading-ink display-font font-semibold recent-card-title">Recent · Dalam Ruangan</h3>
+                            <p data-template-id="inside-recent-subtitle" class="canva-text subtle mt-1 recent-card-subtitle">Pembacaan terbaru dari ruang pengering, setiap 5 menit.</p>
+                        </div>
+                        <span data-template-id="inside-recent-cap" class="canva-tag pill rounded-full px-3 py-1.5 font-semibold self-start recent-card-cap">Maks. 12 data per siklus</span>
+                    </div>
+                    <p id="inside-recent-empty" data-template-id="inside-recent-empty" class="canva-text subtle recent-card-empty">Belum ada pembacaan.</p>
+                    <ol id="inside-recent-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3" aria-label="Pembacaan terbaru dalam ruangan"></ol>
+                </section>
+            </section>
+            <section class="mb-10" aria-labelledby="outside-heading">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="icon-tile blue rounded-2xl p-3" aria-hidden="true">
+                        <i data-lucide="cloud-sun" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 data-template-id="outside-heading" id="outside-heading" class="canva-text heading-ink display-font font-semibold outside-heading">Luar Ruangan</h2>
+                        <p data-template-id="outside-description" class="canva-text subtle outside-description">Sensor di luar ruang pengering</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5 mb-5">
+                    <article data-template-id="outside-temperature-card" class="canva-card metric-card surface reveal rounded-3xl p-6 sm:p-7 metric-card-article" aria-labelledby="outside-temperature-title">
+                        <div class="flex justify-between items-start gap-2">
+                            <div class="icon-tile rounded-2xl p-3" aria-hidden="true">
+                                <i data-lucide="thermometer" class="w-6 h-6"></i>
+                            </div>
+                            <span data-template-id="outside-temperature-tag" class="canva-tag pill rounded-full px-3 py-1 font-semibold outside-temp-tag">SUHU</span>
+                        </div>
+                        <h3 data-template-id="outside-temperature-title" id="outside-temperature-title" class="canva-text subtle font-medium mt-7 metric-card-title">Suhu luar ruangan</h3>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span id="outside-temperature-value" class="display-font font-semibold tracking-tight metric-card-value" aria-live="polite">—</span>
+                            <span data-template-id="outside-temperature-unit" class="canva-text subtle font-semibold metric-card-unit">°C</span>
+                        </div>
+                        <p id="outside-temperature-status" class="subtle mt-2 font-medium">Menyiapkan simulasi…</p>
+                    </article>
+                    <article data-template-id="outside-humidity-card" class="canva-card metric-card surface reveal rounded-3xl p-6 sm:p-7 metric-card-article" aria-labelledby="outside-humidity-title">
+                        <div class="flex justify-between items-start gap-2">
+                            <div class="icon-tile blue rounded-2xl p-3" aria-hidden="true">
+                                <i data-lucide="droplets" class="w-6 h-6"></i>
+                            </div>
+                            <span data-template-id="outside-humidity-tag" class="canva-tag pill rounded-full px-3 py-1 font-semibold outside-hum-tag">KELEMBAPAN</span>
+                        </div>
+                        <h3 data-template-id="outside-humidity-title" id="outside-humidity-title" class="canva-text subtle font-medium mt-7 metric-card-title">Kelembapan luar ruangan</h3>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span id="outside-humidity-value" class="display-font font-semibold tracking-tight metric-card-value" aria-live="polite">—</span>
+                            <span data-template-id="outside-humidity-unit" class="canva-text subtle font-semibold metric-card-unit">%</span>
+                        </div>
+                        <p id="outside-humidity-status" class="subtle mt-2 font-medium">Menyiapkan simulasi…</p>
+                    </article>
+                </div>
+                <section data-template-id="outside-recent-card" class="canva-card surface reveal rounded-3xl p-6 sm:p-8 metric-card-article" aria-labelledby="outside-recent-title">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-6">
+                        <div>
+                            <h3 data-template-id="outside-recent-title" id="outside-recent-title" class="canva-text heading-ink display-font font-semibold recent-card-title">Recent · Luar Ruangan</h3>
+                            <p data-template-id="outside-recent-subtitle" class="canva-text subtle mt-1 recent-card-subtitle">Pembacaan terbaru dari luar ruang pengering, setiap 5 menit.</p>
+                        </div>
+                        <span data-template-id="outside-recent-cap" class="canva-tag pill rounded-full px-3 py-1.5 font-semibold self-start recent-card-cap">Maks. 12 data per siklus</span>
+                    </div>
+                    <p id="outside-recent-empty" data-template-id="outside-recent-empty" class="canva-text subtle recent-card-empty">Belum ada pembacaan.</p>
+                    <ol id="outside-recent-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3" aria-label="Pembacaan terbaru luar ruangan"></ol>
+                </section>
+            </section>
+            <section data-template-id="connection-panel" class="canva-card surface reveal rounded-3xl p-6 sm:p-8 mb-10 metric-card-article" aria-labelledby="connection-heading">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h2 data-template-id="connection-heading" id="connection-heading" class="canva-text heading-ink display-font font-semibold connection-heading">Sumber data</h2>
+                        <p data-template-id="connection-description" class="canva-text subtle mt-1 connection-description">Endpoint Excel dapat diisi nanti untuk mengaktifkan pembaruan otomatis.</p>
+                    </div>
+                    <span id="connection-status" data-template-id="connection-status" class="canva-tag pill rounded-full px-3 py-1.5 font-semibold connection-status" aria-live="polite">Mode simulasi</span>
+                </div>
+                <div class="mt-4 grid sm:grid-cols-2 gap-3 text-sm">
+                    <p>
+                        <span data-template-id="endpoint-label" class="canva-text subtle font-semibold endpoint-label">Endpoint:</span>
+                        <span id="endpoint-display" class="subtle">Belum diisi</span>
+                    </p>
+                    <p>
+                        <span data-template-id="last-sync-label" class="canva-text subtle font-semibold sync-label">Pembaruan terakhir:</span>
+                        <time id="last-sync-time" class="font-semibold">—</time>
+                    </p>
+                </div>
+            </section>
+            <div class="flex justify-end">
+                <button id="refresh-button" data-template-id="refresh-button" type="button" class="canva-button refresh-button-styled rounded-2xl px-5 py-3.5 min-h-12 font-bold w-full sm:w-auto shrink-0">Buat simulasi baru</button>
+            </div>
+            <footer class="pt-7 text-center">
+                <p data-template-id="footer-note" class="canva-text subtle footer-note">Dirancang untuk melihat kondisi, bukan menggantikan alat ukur.</p>
+            </footer>
+        </main>
+    </div>
+    <template id="reading-template">
+        <li data-template-id="recent-row" class="canva-card recent-row rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="min-w-0">
+                <time data-template-id="recent-time" class="canva-text recent-time font-bold block"></time>
+                <span data-template-id="recent-date" class="canva-text subtle block"></span>
+            </div>
+            <div class="recent-values flex flex-wrap items-center gap-x-4 gap-y-1 font-bold">
+                <span data-template-id="recent-temperature" class="canva-text reading-temp"></span>
+                <span data-template-id="recent-humidity" class="canva-text reading-humidity"></span>
+            </div>
+        </li>
+    </template>
+    <script src="script.js"></script> <!-- Link ke file JS -->
+</body>
+</html>
